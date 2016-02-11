@@ -20,11 +20,11 @@ namespace Garage2._0.Models
         public int ID { get; set; }
         public VehicleType Type { get; set; }
         public string Color { get; set; }
-        string Owner { get; set; }
-        string RegNr { get; set; }
-        DateTime ParkingIn { get; set; }
-        DateTime ParkingOut { get; set; }
-        int ParkingSpaceNr { get; set; }
-        bool Reserved { get; set; }
+        public string Owner { get; set; }
+        public string RegNr { get; set; }
+        public DateTime ParkingIn { get; set; }
+        public DateTime ParkingOut { get; set; }
+        public int ParkingSpaceNr { get; set; }
+        public bool Reserved { get; set; }
     }
 }
