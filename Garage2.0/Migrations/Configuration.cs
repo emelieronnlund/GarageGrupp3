@@ -26,9 +26,6 @@ namespace Garage2._0.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Vehicles.AddOrUpdate(
-                new Models.Vehicle { Color = "Blue" }
-                );
         }
     }
 }
