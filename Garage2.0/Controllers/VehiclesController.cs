@@ -11,14 +11,85 @@ using Garage2._0.Models;
 
 namespace Garage2._0.Controllers
 {
+    public class VehicleRepository : IVehicleRepository, IDisposable
+    {
+        private VehicleContext context = new VehicleContext();
+
+        public VehicleRepository(VehicleContext _context)
+        {
+            this.context = _context;
+        }
+        public Vehicle GetVehicleByID(int id)
+        {
+            return context.Vehicles.Find(id);
+        }
+
+        public IEnumerable<Vehicle> GetVehicles()
+        {
+            return context.Vehicles.ToList();
+        }
+
+        public void InsertVehicle(Vehicle v)
+        {
+            context.Vehicles.Add(v);
+        }
+
+        public void RemoveVehicle(int id)
+        {
+            Vehicle v = context.Vehicles.Find(id);
+            context.Vehicles.Remove(v);
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+        public void UpdateVehicle(Vehicle v)
+        {
+            context.Entry(v).State = EntityState.Modified;
+        }
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
     public class VehiclesController : Controller
     {
-        private VehicleContext db = new VehicleContext();
+        // Detta är den klass som pratar med vår database context.
+        private IVehicleRepository Garage; 
+
+        public VehiclesController()
+        {
+            this.Garage = new VehicleRepository(new VehicleContext());
+        }
+
+        public VehiclesController(IVehicleRepository garage)
+        {
+            this.Garage = garage;
+        }
 
         // GET: Vehicles
         public ActionResult Index()
         {
-            return View(db.Vehicles.ToList());
+            return View(Garage.GetVehicles());
         }
 
         // GET: Vehicles/Details/5
@@ -28,7 +99,7 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Garage.GetVehicleByID((int) id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -46,7 +117,7 @@ namespace Garage2._0.Controllers
         // todo: searches on more variables
         public ActionResult Search(string q="")
         {
-            var result = from v in db.Vehicles
+            var result = from v in Garage.GetVehicles()
                          where String.Compare(v.Owner, q, StringComparison.InvariantCultureIgnoreCase) == 0
                          select v;
             return View(result);
@@ -61,8 +132,8 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
+                Garage.InsertVehicle(vehicle);
+                Garage.Save();
                 return RedirectToAction("Index");
             }
 
@@ -76,7 +147,7 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Garage.GetVehicleByID((int)id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -93,8 +164,8 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicle).State = EntityState.Modified;
-                db.SaveChanges();
+                Garage.UpdateVehicle(vehicle);
+                Garage.Save();
                 return RedirectToAction("Index");
             }
             return View(vehicle);
@@ -107,7 +178,7 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Vehicle vehicle = db.Vehicles.Find(id);
+            Vehicle vehicle = Garage.GetVehicleByID((int)id);
             if (vehicle == null)
             {
                 return HttpNotFound();
@@ -120,19 +191,9 @@ namespace Garage2._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
-            db.SaveChanges();
+            Garage.RemoveVehicle(id);
+            Garage.Save();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
