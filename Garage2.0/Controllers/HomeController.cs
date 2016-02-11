@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+// Hej svejs
+
 namespace Garage2._0.Controllers
 {
     public class HomeController : Controller
