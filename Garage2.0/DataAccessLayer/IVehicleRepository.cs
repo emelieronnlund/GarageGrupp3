@@ -14,5 +14,9 @@ namespace Garage2._0.DataAccessLayer
         void RemoveVehicle(int id);
         void UpdateVehicle(Vehicle v);
         void Save();
+        IEnumerable<Vehicle> SearchByRegNr(string regnr);
+        IEnumerable<Vehicle> SearchByOwner(string owner);
+        IEnumerable<Vehicle> FilterByType(VehicleType type);
+        IEnumerable<Vehicle> GetTodaysParking();
     }
 }

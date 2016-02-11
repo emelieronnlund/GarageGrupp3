@@ -45,6 +45,39 @@ namespace Garage2._0.Controllers
             context.SaveChanges();
         }
 
+
+        public IEnumerable<Vehicle> SearchByRegNr(string regnr)
+        {
+            var result = from v in context.Vehicles
+                         where String.Compare(v.RegNr, regnr, StringComparison.InvariantCultureIgnoreCase) == 0
+                         select v;
+            return (result);
+        }
+
+        public IEnumerable<Vehicle> SearchByOwner(string owner)
+        {
+            var result = from v in context.Vehicles
+                         where String.Compare(v.Owner, owner, StringComparison.InvariantCultureIgnoreCase) == 0
+                         select v;
+            return (result);
+        }
+
+        public IEnumerable<Vehicle> FilterByType(VehicleType type)
+        {
+            var result = from v in context.Vehicles
+                         where v.Type == type
+                         select v;
+            return (result);
+        }
+        // Returns all the vehicles to have entered the garage today.
+        public IEnumerable<Vehicle> GetTodaysParking()
+        {
+            var result = from v in context.Vehicles
+                         where v.ParkingIn.Date == DateTime.Today
+                         select v;
+            return (result);
+        }
+
         public void UpdateVehicle(Vehicle v)
         {
             context.Entry(v).State = EntityState.Modified;
@@ -115,12 +148,9 @@ namespace Garage2._0.Controllers
 
         // Searches for vehicles by owner
         // todo: searches on more variables
-        public ActionResult Search(string q="")
+        public ActionResult Search(VehicleType type=VehicleType.Airplane, string q="")
         {
-            var result = from v in Garage.GetVehicles()
-                         where String.Compare(v.Owner, q, StringComparison.InvariantCultureIgnoreCase) == 0
-                         select v;
-            return View(result);
+            return View(Garage.SearchByOwner(q));
         }
 
         // POST: Vehicles/Create
