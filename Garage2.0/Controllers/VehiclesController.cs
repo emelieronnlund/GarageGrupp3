@@ -42,6 +42,16 @@ namespace Garage2._0.Controllers
             return View();
         }
 
+        // Searches for vehicles by owner
+        // todo: searches on more variables
+        public ActionResult Search(string q="")
+        {
+            var result = from v in db.Vehicles
+                         where String.Compare(v.Owner, q, StringComparison.InvariantCultureIgnoreCase) == 0
+                         select v;
+            return View(result);
+        }
+
         // POST: Vehicles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

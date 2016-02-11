@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Garage2._0.Models.Vehicle>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingSpaceNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reserved)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingSpaceNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reserved)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
