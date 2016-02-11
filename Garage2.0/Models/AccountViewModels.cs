@@ -10,6 +10,8 @@ namespace Garage2._0.Models
         public string Email { get; set; }
     }
 
+	//test LJ
+
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
