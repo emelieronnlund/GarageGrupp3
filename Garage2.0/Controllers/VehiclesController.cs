@@ -62,7 +62,7 @@ namespace Garage2._0.Controllers
                     break;
             }
 
-           return( results.OrderBy(x => x.ParkingIn).ThenByDescending(y => y.Type) );
+           return( results.OrderBy(x => x.Type).ThenByDescending(y => y.ParkingIn) );
             
         }
 
@@ -110,7 +110,7 @@ namespace Garage2._0.Controllers
         public IEnumerable<Vehicle> GetTodaysParking()
         {
             var result = from v in context.Vehicles
-                         where v.ParkingIn.Date == DateTime.Today
+                         where v.ParkingIn.Date ==  DateTime.Today
                          select v;
             return (result);
         }
