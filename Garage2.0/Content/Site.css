@@ -22,3 +22,68 @@ select,
 textarea {
     max-width: 280px;
 }
+img {
+    max-width: 99%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+.jumbotron {
+	position:relative;
+	float: left;
+	height:auto;
+	max-width:100%;
+	margin-bottom:20px;
+    background-color:#fff;
+    font-size:1em;
+}
+.monitor-text-holder {
+	position:absolute;
+	bottom:0;
+	min-height:200px;
+	width:100%;
+}
+
+.monitor-text {
+	position:relative;
+	margin-left:290px;
+	color:#fff;
+	font-size: 2em;
+	line-height: 2em;
+}
+
+p.monitor-text-rubrik_1,
+p.monitor-text-rubrik_2 {
+	padding:5px 10px;
+}
+
+p.monitor-text-rubrik_1,
+p.monitor-text-rubrik_2 {
+	background-color: #fff;
+	color:#333;
+}
+p.monitor-text-rubrik_1 {
+	font-size: 1.5em;
+	line-height: 1.7em;
+	background-color: #fff;
+	color:#333;
+}
+p.monitor-text-rubrik_2,
+p.monitor-text-rubrik_3 {
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.9em
+}
+
+p.monitor-text-rubrik_3 {
+	background-color: #E08512;
+}
+p.monitor-text-rubrik_3 a {
+	padding:5px 10px;
+	background-color: #E08512;
+	color:#fff;
+}
+p.monitor-text-rubrik_3 a:hover {
+	background-color:#e39129;
+	text-decoration:none;
+}
