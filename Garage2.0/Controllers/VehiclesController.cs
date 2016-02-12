@@ -11,6 +11,12 @@ using Garage2._0.Models;
 
 namespace Garage2._0.Controllers
 {
+    public enum FilterType
+    {
+        All,
+        ByType,
+        Today
+    }
     public class VehicleRepository : IVehicleRepository, IDisposable
     {
         private VehicleContext context = new VehicleContext();
@@ -24,9 +30,40 @@ namespace Garage2._0.Controllers
             return context.Vehicles.Find(id);
         }
 
-        public IEnumerable<Vehicle> GetVehicles()
+        public IEnumerable<Vehicle> GetVehicles(FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car)
         {
-            return context.Vehicles.ToList();
+            IEnumerable<Vehicle> results;
+
+            switch (filter)
+            {
+                case FilterType.All:
+                    {
+                        results = context.Vehicles.ToList();
+                        break;
+                    }
+                case FilterType.ByType:
+                    {
+                        results = from v in context.Vehicles
+                                      where vehicleFilter == v.Type
+                                      select v;
+                        break;
+                    }
+                case FilterType.Today:
+                    {
+                        results = from v in context.Vehicles
+                                     where v.ParkingIn.Date == DateTime.Today
+                                     select v;
+                        break;
+                    }
+                default:
+                    {
+                        results = context.Vehicles.ToList();
+                    }
+                    break;
+            }
+
+           return( results.OrderBy(x => x.ParkingIn).ThenByDescending(y => y.Type) );
+            
         }
 
         public void InsertVehicle(Vehicle v)
@@ -148,7 +185,7 @@ namespace Garage2._0.Controllers
 
         // Searches for vehicles by owner
         // todo: searches on more variables
-        public ActionResult Search(VehicleType type=VehicleType.Airplane, string q="")
+        public ActionResult Search(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)
         {
             return View(Garage.SearchByOwner(q));
         }

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Garage2._0.Models;
+using Garage2._0.Controllers;
 
 namespace Garage2._0.DataAccessLayer
 {
     public interface IVehicleRepository : IDisposable
     {
-        IEnumerable<Vehicle> GetVehicles();
+        IEnumerable<Vehicle> GetVehicles(FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car);
         Vehicle GetVehicleByID(int id);
         void InsertVehicle(Vehicle v);
         void RemoveVehicle(int id);

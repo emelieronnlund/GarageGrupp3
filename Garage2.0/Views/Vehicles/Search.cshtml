@@ -8,6 +8,17 @@
 @using (Html.BeginForm("Search", "Vehicles", FormMethod.Get))
 {
     @Html.TextBox("q")
+    @*@Html.DropDownList("type", new SelectList(Model.First().Type))*@
+    @*@Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })*@
+
+                @*@Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
+{
+    "Car",
+    "Boat",
+    "Airplane",
+    "Motorcycle",
+    "Bicycle"
+}))*@
     @Html.ActionLink("Search", "Search")
 }
 

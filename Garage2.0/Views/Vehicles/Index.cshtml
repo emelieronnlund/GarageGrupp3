@@ -26,7 +26,16 @@
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNr)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingIn)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
