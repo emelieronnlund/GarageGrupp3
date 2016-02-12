@@ -51,7 +51,7 @@ namespace Garage2._0.Controllers
                 case FilterType.Today:
                     {
                         results = from v in context.Vehicles
-                                     where v.ParkingIn.Date == DateTime.Today
+                                     where v.ParkingIn == DateTime.Today
                                      select v;
                         break;
                     }
@@ -110,7 +110,7 @@ namespace Garage2._0.Controllers
         public IEnumerable<Vehicle> GetTodaysParking()
         {
             var result = from v in context.Vehicles
-                         where v.ParkingIn.Date ==  DateTime.Today
+                         where v.ParkingIn == DateTime.Today
                          select v;
             return (result);
         }

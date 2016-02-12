@@ -32,8 +32,8 @@ namespace Garage2._0.Models
         public string Color { get; set; }
         public string Owner { get; set; }
         public string RegNr { get; set; }
-        public DateTime ParkingIn { get; set; }
-        public DateTime ParkingOut { get; set; }
+        public DateTime? ParkingIn { get; set; }
+        public DateTime? ParkingOut { get; set; }
         public int ParkingSpaceNr { get; set; }
         public bool Reserved { get; set; }
     }
