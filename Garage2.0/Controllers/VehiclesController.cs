@@ -62,7 +62,7 @@ namespace Garage2._0.Controllers
                     break;
             }
 
-           return( results.OrderBy(x => x.ParkingIn).ThenByDescending(y => y.Type) );
+           return( results.OrderBy(x => x.Type).ThenByDescending(y => y.ParkingIn) );
             
         }
 
