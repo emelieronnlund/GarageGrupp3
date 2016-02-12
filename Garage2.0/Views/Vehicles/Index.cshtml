@@ -2,20 +2,36 @@
 
 @{
     ViewBag.Title = "Index";
+    List<string> l = new List<string>();
+    l.Add("All Vehicle Types");
+    l.Add("Car");
+    l.Add("Boat");
+    l.Add("Airplane");
+    l.Add("Motorcycle");
+    l.Add("Bicycle");
+    @*"Car",
+            "Boat",
+            "Airplane",
+            "Motorcycle",
+            "Bicycle"});*@
 }
 
 <h2>Index</h2>
-@Html.BeginForm()
-{
-
-}
+<p>@DateTime.Now</p>
+    @using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
+    {
+        @Html.TextBox("q")
+        @Html.CheckBox("today",true)
+        @Html.DropDownList("type",new SelectList(l))
+        <input type="submit" value="Filter" />
+    }
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Type) // HEJ
+            @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Color)
