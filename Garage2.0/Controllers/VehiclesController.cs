@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Garage2._0.DataAccessLayer;
 using Garage2._0.Models;
+using System.Reflection;
 
 namespace Garage2._0.Controllers
 {
@@ -30,10 +31,9 @@ namespace Garage2._0.Controllers
             return context.Vehicles.Find(id);
         }
 
-        public IEnumerable<Vehicle> GetVehicles(FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car)
+        public IEnumerable<Vehicle> GetVehicles(bool? today, FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car)
         {
             IEnumerable<Vehicle> results;
-
             switch (filter)
             {
                 case FilterType.All:
@@ -61,8 +61,14 @@ namespace Garage2._0.Controllers
                     }
                     break;
             }
-
-           return( results.OrderBy(x => x.Type).ThenByDescending(y => y.ParkingIn) );
+            if(today == true)
+            {
+                results = from v in results
+                          where v.ParkingIn.Value.Date == DateTime.Today
+                          select v;
+            }
+            var r = results.OrderBy(x => x.Type).ThenByDescending(y => y.ParkingIn);
+           return ( r);
             
         }
 
@@ -91,11 +97,18 @@ namespace Garage2._0.Controllers
             return (result);
         }
 
-        public IEnumerable<Vehicle> SearchByOwner(string owner)
+        public IEnumerable<Vehicle> SearchByOwner(string owner, bool today)
         {
             var result = from v in context.Vehicles
                          where String.Compare(v.Owner, owner, StringComparison.InvariantCultureIgnoreCase) == 0
                          select v;
+
+            if (today == true)
+            {
+                result = from v in result
+                          where v.ParkingIn.Value.Date == DateTime.Today
+                          select v;
+            }
             return (result);
         }
 
@@ -159,7 +172,7 @@ namespace Garage2._0.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            return View(Garage.GetVehicles());
+            return View(Garage.GetVehicles(false));
         }
 
         // GET: Vehicles/Details/5
@@ -185,9 +198,29 @@ namespace Garage2._0.Controllers
 
         // Searches for vehicles by owner
         // todo: searches on more variables
-        public ActionResult Search(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)
+        [HttpGet]
+        public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
         {
-            return View(Garage.SearchByOwner(q));
+            FilterType filter;
+            VehicleType vt;
+            if (!String.IsNullOrEmpty(q))
+            {
+                return View(Garage.SearchByOwner(q, today));
+            }
+            if (String.IsNullOrEmpty(type))
+            {
+                return View(Garage.GetVehicles(today));
+            }
+            if (String.Compare(type, "All Vehicle Types", StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                filter = FilterType.All;
+                return View(Garage.GetVehicles(today));
+            }
+                vt = (VehicleType)Enum.Parse(typeof(VehicleType), type);
+
+                filter = FilterType.ByType;
+            //bool btoday = String.Compare(today, "true", StringComparison.InvariantCultureIgnoreCase) == 0;
+            return View(Garage.GetVehicles(today,filter, vt));
         }
 
         // POST: Vehicles/Create
