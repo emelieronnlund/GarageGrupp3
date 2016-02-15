@@ -16,17 +16,22 @@
             "Bicycle"});*@
 }
 
-<h2>Index</h2>
+<h1>Lista fordon</h1>
+<hr />
 <p>@DateTime.Now</p>
+<h2>Filtrera</h2>
+<div class="search-container">
     @using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
     {
-        @Html.TextBox("q")
-        @Html.CheckBox("today",true)
-        @Html.DropDownList("type",new SelectList(l))
-        <input type="submit" value="Filter" />
+        <p> @Html.CheckBox("today", false)Lista alla fordon som ställts in idag @DateTime.Today.Day / @DateTime.Today.Month</p>
+        <p>
+            @Html.DropDownList("type", new SelectList(l))
+        <input type="submit" class="btn btn-default" value="Filter" />
+    </p>
     }
+</div>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Lägg till fordon", "Create")
 </p>
 <table class="table">
     <tr>
@@ -34,9 +39,17 @@
             @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNr)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Color)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingIn)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -57,9 +70,9 @@
             @Html.DisplayFor(modelItem => item.ParkingIn)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Ändra", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Visa", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Ta bort", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

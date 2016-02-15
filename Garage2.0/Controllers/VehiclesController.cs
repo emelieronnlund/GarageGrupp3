@@ -232,6 +232,8 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                vehicle.ParkingIn = DateTime.Now;
+                vehicle.ParkingOut = DateTime.Now.AddHours(2);
                 Garage.InsertVehicle(vehicle);
                 Garage.Save();
                 return RedirectToAction("Index");
@@ -271,6 +273,25 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
+        [HttpGet]
+        public ActionResult Search(string q="", string val="")
+        {
+            if( String.IsNullOrEmpty(q) )
+            {
+                return View(Garage.GetVehicles(false));
+            }
+
+            if (val == "owner")
+            {
+                return View(Garage.SearchByOwner(q, false));
+            }
+            else if (val == "reg")
+            {
+                return View(Garage.SearchByRegNr(q));
+            }
+            else
+                return View(Garage.GetVehicles(false));
+        }
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {

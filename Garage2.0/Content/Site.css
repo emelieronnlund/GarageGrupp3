@@ -4,13 +4,12 @@
     background-color:#333333;
 }
 
-.body-content {
-    background-color:#fff;
-}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color:#fff;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -28,21 +27,26 @@ textarea {
 }
 
 a {
-    color:#ff006e;
+    color:#FFAE00;
 }
 a:hover {
     color:#808080;
     text-decoration:none;
 }
 h1 {
-	font-size: 1.8em;
+	font-size: 2.8em;
 	font-family: 'Berkshire Swash', cursive;
-	margin-bottom:0.3em;
+	margin-bottom:0.5em;
 }
 
 h2, h3, h4 {font-family:roboto;}
 
-h2{font-size:1.9em;}
+h2{
+    font-size:1.9em;
+}
+h2.h2-start{
+    font-family: 'Berkshire Swash', cursive;
+}
 img {
     max-width: 99%;
     height: auto;
@@ -83,4 +87,12 @@ img {
 .btn-default:active, .btn-primary.active {
     background: #FFAE00;
     box-shadow: none;
+}
+
+.search-container {
+    margin-bottom: 30px;
+}
+
+#today {
+    margin-right:15px;
 }

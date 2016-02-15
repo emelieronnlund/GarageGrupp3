@@ -1,30 +1,22 @@
 ﻿@model IEnumerable<Vehicle>
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Sök fordon";
 }
 
-<h2>Search</h2>
-@using (Html.BeginForm("Search", "Vehicles", FormMethod.Get))
-{
-    @Html.TextBox("q")
-    @*@Html.DropDownList("type", new SelectList(Model.First().Type))*@
-    @*@Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })*@
-
-                @*@Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
-{
-    "Car",
-    "Boat",
-    "Airplane",
-    "Motorcycle",
-    "Bicycle"
-}))*@
-    @Html.ActionLink("Search", "Search")
-}
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h1>Sök fordon</h1>
+<hr />
+<div class="search-container">
+    @using (Html.BeginForm("Search", "Vehicles", FormMethod.Get))
+    {
+        
+        <p>Sök på ägare: @Html.RadioButton("val", "owner", true)</p>
+        <p>Sök på registreringsnummer: @Html.RadioButton("val", "reg")</p>
+        @Html.TextBox("q")
+        <input type="submit" class="btn btn-default" name="Submit" />
+    }
+</div>
+<div><p>@Html.ActionLink("Lista alla fordon", "Search")</p></div>
 <table class="table">
     <tr>
         <th>
@@ -45,12 +37,12 @@
         <th>
             @Html.DisplayNameFor(model => model.ParkingOut)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.ParkingSpaceNr)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Reserved)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -74,16 +66,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.ParkingOut)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.ParkingSpaceNr)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Reserved)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Ändra", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Visa", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Ta bort", "Delete", new { id=item.ID })
         </td>
     </tr>
 }
