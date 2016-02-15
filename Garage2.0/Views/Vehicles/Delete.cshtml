@@ -4,14 +4,14 @@
     ViewBag.Title = "Ta bort fordon";
 }
 
-<h2>Ta bort</h2>
+<h1>Ta bort</h1>
 
 <h3>Är du säker på att du vill ta bort detta fordon?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            Fordonstyp: @*@Html.DisplayNameFor(model => model.Type)*@
         </dt>
 
         <dd>
@@ -19,32 +19,32 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Color)
+            Färg: @*@Html.DisplayNameFor(model => model.Color)*@
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Owner)
+            Ägare: @*@Html.DisplayNameFor(model => model.Owner)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Owner)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.RegNr)
+            Reg Nr:@*@Html.DisplayNameFor(model => model.RegNr)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RegNr)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ParkingIn)
+            Checka IN:@*@Html.DisplayNameFor(model => model.ParkingIn)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ParkingIn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ParkingOut)
+            Checka UT: @*@Html.DisplayNameFor(model => model.ParkingOut)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ParkingOut)
@@ -55,8 +55,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            <a href='@Url.Action("Index")'>&laquo;Tillbaka till listan</a>
+            <a href='@Url.Action("Index")'>&laquo;Tillbaka till listan</a> |
+            <input type="submit" value="Delete" class="btn btn-default" />
         </div>
     }
 </div>

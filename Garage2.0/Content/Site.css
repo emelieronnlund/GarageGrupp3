@@ -7,8 +7,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
     background-color:#fff;
 }
 
@@ -54,9 +54,11 @@ img {
     border-radius: 4px;
     padding: 5px;
 }
-.jumbotron {
+.container .jumbotron {
     background-color:#FFF;
     margin-bottom:0;
+    padding-left:0;
+    padding-right:0;
 }
 .jumbotron img {
     background-color:#FFF;
@@ -95,4 +97,23 @@ img {
 
 #today {
     margin-right:15px;
+}
+
+.text-danger {
+    color:#f00;
+    font-weight:700;
+}
+.navbar-inverse .navbar-nav > li > a {
+    font-size:16px;
+    color: #FFAE00;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+     color: #fff;
+}
+
+.table tr:nth-child(2n+2){
+    background-color:#FFF9D6;
+}
+.table tr:first-of-type {
+    background-color:#FFD900;
 }

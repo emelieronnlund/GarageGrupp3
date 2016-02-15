@@ -30,7 +30,9 @@ namespace Garage2._0.Models
         public int ID { get; set; }
         public VehicleType Type { get; set; }
         public string Color { get; set; }
+        [Required]
         public string Owner { get; set; }
+        [Required]
         public string RegNr { get; set; }
         public DateTime? ParkingIn { get; set; }
         public DateTime? ParkingOut { get; set; }

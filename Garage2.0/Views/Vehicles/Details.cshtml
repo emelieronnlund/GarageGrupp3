@@ -4,14 +4,13 @@
     ViewBag.Title = "Visa fordon";
 }
 
-<h2>Details</h2>
+<h1>Visa fordon</h1>
 
 <div>
-    <h4>Vehicle</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+           Fordonstyp: @*@Html.DisplayNameFor(model => model.Type)*@
         </dt>
 
         <dd>
@@ -19,39 +18,41 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Color)
+           Färg: @*@Html.DisplayNameFor(model => model.Color)*@
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Color)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Owner)
+           Ägare: @*@Html.DisplayNameFor(model => model.Owner)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Owner)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.RegNr)
+            Reg Nr:@*@Html.DisplayNameFor(model => model.RegNr)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.RegNr)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ParkingIn)
+            Checka IN:@*@Html.DisplayNameFor(model => model.ParkingIn)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ParkingIn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ParkingOut)
+            Checka UT: @*@Html.DisplayNameFor(model => model.ParkingOut)*@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.ParkingOut)
         </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Ändra", "Edit", new { id = Model.ID }) |
-    <a href='@Url.Action("Index")'>&laquo;Tillbaka till listan</a>
-</p>
+
+<div class="form-actions no-color">
+    <a href='@Url.Action("Index")'>&laquo;Tillbaka till listan</a> |
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+</div>
+

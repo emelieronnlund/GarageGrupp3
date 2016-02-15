@@ -10,8 +10,8 @@
     @using (Html.BeginForm("Search", "Vehicles", FormMethod.Get))
     {
         
-        <p>Sök på ägare: @Html.RadioButton("val", "owner", true)</p>
-        <p>Sök på registreringsnummer: @Html.RadioButton("val", "reg")</p>
+        <p>@Html.RadioButton("val", "owner", true) Sök på ägare</p>
+        <p>@Html.RadioButton("val", "reg") Sök på registreringsnummer</p>
         @Html.TextBox("q")
         <input type="submit" class="btn btn-default" name="Submit" />
     }
@@ -20,30 +20,26 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            Fordonstyp @*@Html.DisplayNameFor(model => model.Type)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Color)
+            Ägare @*@Html.DisplayNameFor(model => model.RegNr)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Owner)
+            Reg Nr @*@Html.DisplayNameFor(model => model.Color)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RegNr)
+            Färg @*@Html.DisplayNameFor(model => model.Owner)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParkingIn)
+            Checkat IN @*@Html.DisplayNameFor(model => model.ParkingIn)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ParkingOut)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.ParkingSpaceNr)
+            Checka UT @*@Html.DisplayNameFor(model => model.ParkingIn)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reserved)
-        </th>*@
-        <th></th>
+            &nbsp;
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -52,14 +48,16 @@
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Owner)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.RegNr)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+
+
         <td>
             @Html.DisplayFor(modelItem => item.ParkingIn)
         </td>
