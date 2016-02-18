@@ -195,9 +195,11 @@ namespace Garage2._0.Controllers
         {
             return View();
         }
-
-        // Searches for vehicles by owner
-        // todo: searches on more variables
+        // GET: Vehicles/Detailed_list
+        public ActionResult Detailed_list()
+        {
+            return View(Garage.GetVehicles(false));
+        }
         [HttpGet]
         public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
         {

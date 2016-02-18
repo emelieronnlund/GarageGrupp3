@@ -3,7 +3,7 @@ namespace Garage2._0.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -14,8 +14,8 @@ namespace Garage2._0.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Type = c.Int(nullable: false),
                         Color = c.String(),
-                        Owner = c.String(),
-                        RegNr = c.String(),
+                        Owner = c.String(nullable: false),
+                        RegNr = c.String(nullable: false),
                         ParkingIn = c.DateTime(),
                         ParkingOut = c.DateTime(),
                         ParkingSpaceNr = c.Int(nullable: false),

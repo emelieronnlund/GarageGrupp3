@@ -1,0 +1,25 @@
+﻿@{
+    List<string> l = new List<string>();
+    l.Add("All Vehicle Types");
+    l.Add("Car");
+    l.Add("Boat");
+    l.Add("Airplane");
+    l.Add("Motorcycle");
+    l.Add("Bicycle");
+    @*"Car",
+        "Boat",
+        "Airplane",
+        "Motorcycle",
+        "Bicycle"});*@
+}
+
+<div class="search-container">
+    @using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
+    {
+        <p> @Html.CheckBox("today", false)Lista alla fordon som ställts in idag @DateTime.Today.Day / @DateTime.Today.Month</p>
+        <p>
+            @Html.DropDownList("type", new SelectList(l))
+            <input type="submit" class="btn btn-default" value="Filter" />
+        </p>
+    }
+</div>

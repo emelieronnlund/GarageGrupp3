@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Garage2._0.Models.Vehicle>
+@{
+    ViewBag.Title = "Index";
+    List<string> l = new List<string>();
+    l.Add("All Vehicle Types");
+    l.Add("Car");
+    l.Add("Boat");
+    l.Add("Airplane");
+    l.Add("Motorcycle");
+    l.Add("Bicycle");
+    @*"Car",
+        "Boat",
+        "Airplane",
+        "Motorcycle",
+        "Bicycle"});*@
+}
+@*@{
+    ViewBag.Title = "Detailed_list";
+}*@
+
+<h1>Detaljerad lista</h1>
+<hr />
+<p>@DateTime.Now</p>
+<h2>Filtrera</h2>
+<div class="search-container">
+    @using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
+    {
+        <p> @Html.CheckBox("today", false)Lista alla fordon som ställts in idag @DateTime.Today.Day / @DateTime.Today.Month</p>
+        <p>
+            @Html.DropDownList("type", new SelectList(l))
+            <input type="submit" class="btn btn-default" value="Filter" />
+        </p>
+    }
+</div>
+<p>
+    @Html.ActionLink("Lägg till fordon", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingSpaceNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reserved)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Owner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParkingSpaceNr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reserved)
+        </td>
+        <td>
+            @Html.ActionLink("Ändra", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Visa", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Ta bort", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>

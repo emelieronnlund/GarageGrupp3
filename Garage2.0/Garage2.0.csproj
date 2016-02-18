@@ -174,9 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602151305377_initial2.cs" />
-    <Compile Include="Migrations\201602151305377_initial2.Designer.cs">
-      <DependentUpon>201602151305377_initial2.cs</DependentUpon>
+    <Compile Include="Migrations\201602181215119_Initial.cs" />
+    <Compile Include="Migrations\201602181215119_Initial.Designer.cs">
+      <DependentUpon>201602181215119_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -260,11 +260,9 @@
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
     <Content Include="Views\Vehicles\Search.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602151305377_initial2.resx">
-      <DependentUpon>201602151305377_initial2.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\Vehicles\Detailed_list.cshtml" />
+    <Content Include="Views\Vehicles\_Search.cshtml" />
+    <Content Include="Views\Vehicles\_Filter.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -273,6 +271,11 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602181215119_Initial.resx">
+      <DependentUpon>201602181215119_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

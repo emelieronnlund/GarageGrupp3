@@ -6,7 +6,8 @@
 
 <h1>Sök fordon</h1>
 <hr />
-<div class="search-container">
+@Html.Partial("_Search")
+@*<div class="search-container">
     @using (Html.BeginForm("Search", "Vehicles", FormMethod.Get))
     {
         
@@ -15,27 +16,27 @@
         @Html.TextBox("q")
         <input type="submit" class="btn btn-default" name="Submit" />
     }
-</div>
+</div>*@
 <div><p>@Html.ActionLink("Lista alla fordon", "Search")</p></div>
 <table class="table">
     <tr>
         <th>
-            Fordonstyp @*@Html.DisplayNameFor(model => model.Type)*@
+            @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
-            Ägare @*@Html.DisplayNameFor(model => model.RegNr)*@
+            @Html.DisplayNameFor(model => model.RegNr)
         </th>
         <th>
-            Reg Nr @*@Html.DisplayNameFor(model => model.Color)*@
+            @Html.DisplayNameFor(model => model.Color)
         </th>
         <th>
-            Färg @*@Html.DisplayNameFor(model => model.Owner)*@
+            @Html.DisplayNameFor(model => model.Owner)
         </th>
         <th>
-            Checkat IN @*@Html.DisplayNameFor(model => model.ParkingIn)*@
+            @Html.DisplayNameFor(model => model.ParkingIn)
         </th>
         <th>
-            Checka UT @*@Html.DisplayNameFor(model => model.ParkingIn)*@
+            @Html.DisplayNameFor(model => model.ParkingOut)
         </th>
         <th>
             &nbsp;

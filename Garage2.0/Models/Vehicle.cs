@@ -28,15 +28,21 @@ namespace Garage2._0.Models
     {
         [Key]
         public int ID { get; set; }
+        [Display (Name="Fordonstyp")]
         public VehicleType Type { get; set; }
+        [Display(Name = "Färg")]
         public string Color { get; set; }
-        [Required]
+        [Required Display(Name = "Ägare")]
         public string Owner { get; set; }
-        [Required]
+        [Required Display(Name = "Reg Nr")]
         public string RegNr { get; set; }
+        [Display(Name = "Checkat IN")]
         public DateTime? ParkingIn { get; set; }
+        [Display(Name = "Checkat UT")]
         public DateTime? ParkingOut { get; set; }
+        [Display(Name = "P-plats Nr")]
         public int ParkingSpaceNr { get; set; }
+        [Display(Name = "Reserverad")]
         public bool Reserved { get; set; }
     }
 }
