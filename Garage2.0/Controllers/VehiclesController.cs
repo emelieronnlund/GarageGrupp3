@@ -41,13 +41,13 @@ namespace Garage2._0.Controllers
                         results = context.Vehicles.ToList();
                         break;
                     }
-                case FilterType.ByType:
-                    {
-                        results = from v in context.Vehicles
-                                      where vehicleFilter == v.Type
-                                      select v;
-                        break;
-                    }
+                //case FilterType.ByType:
+                //    {
+                //        results = from v in context.Vehicles
+                //                      where vehicleFilter == v.vehicleType
+                //                      select v;
+                //        break;
+                //    }
                 case FilterType.Today:
                     {
                         results = from v in context.Vehicles
@@ -67,8 +67,8 @@ namespace Garage2._0.Controllers
                           where v.ParkingIn.Value.Date == DateTime.Today
                           select v;
             }
-            var r = results.OrderBy(x => x.Type).ThenByDescending(y => y.ParkingIn);
-           return ( r);
+            //var r = results.OrderBy(x => x.vehicleType).ThenByDescending(y => y.ParkingIn);
+           return ( results);
             
         }
 
@@ -99,25 +99,27 @@ namespace Garage2._0.Controllers
 
         public IEnumerable<Vehicle> SearchByOwner(string owner, bool today)
         {
-            var result = from v in context.Vehicles
-                         where String.Compare(v.Owner, owner, StringComparison.InvariantCultureIgnoreCase) == 0
-                         select v;
+            //var result = from v in context.Vehicles
+            //             where String.Compare(v.Vehicle_OwnerId, owner, StringComparison.InvariantCultureIgnoreCase) == 0
+            //             select v;
 
-            if (today == true)
-            {
-                result = from v in result
-                          where v.ParkingIn.Value.Date == DateTime.Today
-                          select v;
-            }
-            return (result);
+            //if (today == true)
+            //{
+            //    result = from v in result
+            //              where v.ParkingIn.Value.Date == DateTime.Today
+            //              select v;
+            //}
+            //return (result);
+            return null;
         }
 
         public IEnumerable<Vehicle> FilterByType(VehicleType type)
         {
-            var result = from v in context.Vehicles
-                         where v.Type == type
-                         select v;
-            return (result);
+            //var result = from v in context.Vehicles
+            //             where v.Vehicle_TypeId == type
+            //             select v;
+            //return (result);
+            return null;
         }
         // Returns all the vehicles to have entered the garage today.
         public IEnumerable<Vehicle> GetTodaysParking()
@@ -153,6 +155,79 @@ namespace Garage2._0.Controllers
             GC.SuppressFinalize(this);
         }
 
+        public IEnumerable<Vehicle> FilterList(string type, bool today = false, string q = "")
+        {
+            FilterType filter;
+            VehicleType vt;
+            if (!String.IsNullOrEmpty(q))
+            {
+                return SearchByOwner(q, today);
+            }
+            if (String.IsNullOrEmpty(type))
+            {
+                return GetVehicles(today);
+            }
+            if (String.Compare(type, "All Vehicle Types", StringComparison.InvariantCultureIgnoreCase) == 0)
+            {
+                filter = FilterType.All;
+                return GetVehicles(today);
+            }
+            vt = (VehicleType)Enum.Parse(typeof(VehicleType), type);
+
+            filter = FilterType.ByType;
+            //bool btoday = String.Compare(today, "true", StringComparison.InvariantCultureIgnoreCase) == 0;
+            return GetVehicles(today, filter, vt);
+        }
+
+        ////
+        //// Owner
+
+        public IEnumerable<VehicleOwner> GetOwners()
+        {
+            return context.Owners.ToList();
+        }
+
+        ////
+        //// Vehicle_Types
+
+        public IEnumerable<Vehicle_Type> GetTypes()
+        {
+            return context.Vehicle_Types.ToList();
+        }
+
+
+        ////
+
+        public IEnumerable<Vehicle> FilterSearch(string regnr, string vehicleTypeFilter)
+        {
+            if(String.IsNullOrEmpty(regnr))
+            {
+                var results = from v in context.Vehicles
+                              where (String.Compare(vehicleTypeFilter, v.vehicle_Type.Name) == 0)
+                              select v;
+
+
+                return results;
+            }
+            else
+            {
+                return SearchByRegNr(regnr);
+            }
+            //if( vehicleTypeFilter != "All")
+            //{
+            //    var results = from r in results
+            //              where r.vehicle_Type.Name == vehicleTypeFilter
+            //              select r;
+
+            //    return results;
+            //}
+            //else
+            //{
+            //    IEnumerable<Vehicle> results = SearchByRegNr(regnr);
+
+            //    return GetVehicles(false);
+            //}
+        }
     }
     public class VehiclesController : Controller
     {
@@ -203,26 +278,7 @@ namespace Garage2._0.Controllers
         [HttpGet]
         public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
         {
-            FilterType filter;
-            VehicleType vt;
-            if (!String.IsNullOrEmpty(q))
-            {
-                return View(Garage.SearchByOwner(q, today));
-            }
-            if (String.IsNullOrEmpty(type))
-            {
-                return View(Garage.GetVehicles(today));
-            }
-            if (String.Compare(type, "All Vehicle Types", StringComparison.InvariantCultureIgnoreCase) == 0)
-            {
-                filter = FilterType.All;
-                return View(Garage.GetVehicles(today));
-            }
-                vt = (VehicleType)Enum.Parse(typeof(VehicleType), type);
-
-                filter = FilterType.ByType;
-            //bool btoday = String.Compare(today, "true", StringComparison.InvariantCultureIgnoreCase) == 0;
-            return View(Garage.GetVehicles(today,filter, vt));
+            return View(Garage.FilterList(type,today,q));
         }
 
         // POST: Vehicles/Create
@@ -317,6 +373,16 @@ namespace Garage2._0.Controllers
             Garage.RemoveVehicle(id);
             Garage.Save();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult _Filter()
+        {
+            return PartialView(Garage.GetTypes());
+        }
+
+        public ActionResult _FilterDetailed()
+        {
+            return PartialView(Garage.GetTypes());
         }
     }
 }

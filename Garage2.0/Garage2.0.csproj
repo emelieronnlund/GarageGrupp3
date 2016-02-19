@@ -174,9 +174,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602181215119_Initial.cs" />
-    <Compile Include="Migrations\201602181215119_Initial.Designer.cs">
-      <DependentUpon>201602181215119_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201602190954167_Initialnew.cs" />
+    <Compile Include="Migrations\201602190954167_Initialnew.Designer.cs">
+      <DependentUpon>201602190954167_Initialnew.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -192,10 +192,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-Garage2.0-20160211104929.mdf" />
-    <Content Include="App_Data\aspnet-Garage2.0-20160211104929_log.ldf">
-      <DependentUpon>aspnet-Garage2.0-20160211104929.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -263,6 +259,8 @@
     <Content Include="Views\Vehicles\Detailed_list.cshtml" />
     <Content Include="Views\Vehicles\_Search.cshtml" />
     <Content Include="Views\Vehicles\_Filter.cshtml" />
+    <Content Include="Views\Vehicles\_oldFilter.cshtml" />
+    <Content Include="Views\Vehicles\_FilterDetailed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -273,9 +271,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602181215119_Initial.resx">
-      <DependentUpon>201602181215119_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602190954167_Initialnew.resx">
+      <DependentUpon>201602190954167_Initialnew.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

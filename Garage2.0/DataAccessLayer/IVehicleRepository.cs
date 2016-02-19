@@ -19,5 +19,9 @@ namespace Garage2._0.DataAccessLayer
         IEnumerable<Vehicle> SearchByOwner(string owner, bool today);
         IEnumerable<Vehicle> FilterByType(VehicleType type);
         IEnumerable<Vehicle> GetTodaysParking();
+        IEnumerable<Vehicle_Type> GetTypes();
+        IEnumerable<VehicleOwner> GetOwners();
+        IEnumerable<Vehicle> FilterList(string type, bool today = false, string q = "");
+
     }
 }
