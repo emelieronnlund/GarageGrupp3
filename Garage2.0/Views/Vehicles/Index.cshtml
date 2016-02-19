@@ -27,7 +27,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.vehicle_Type)
+            @Html.DisplayNameFor(model => model.Vehicle_Type.Name)
            @*@Html.DisplayNameFor(model => model.Type)*@
         </th>
         @*<th>
@@ -53,7 +53,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.vehicle_Type.Name)
+            @Html.DisplayFor(modelItem => item.Vehicle_Type.Name)
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.Owner)

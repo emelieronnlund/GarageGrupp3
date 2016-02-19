@@ -10,10 +10,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-           @Html.DisplayNameFor(model => model.Type)
+           @Html.DisplayNameFor(model => model.Vehicle_Type.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Vehicle_Type.Name)
         </dd>
 
         <dt>
@@ -24,10 +24,10 @@
         </dd>
 
         <dt>
-           @Html.DisplayNameFor(model => model.Owner)
+           @Html.DisplayNameFor(model => model.VehicleOwner.OwnerName)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Owner)
+            @Html.DisplayFor(model => model.VehicleOwner.OwnerName)
         </dd>
 
         <dt>
@@ -55,6 +55,6 @@
 
 <div class="form-actions no-color">
     <a href='@Url.Action("Index")'>&laquo;Tillbaka till listan</a> |
-    @Html.ActionLink("Ändra", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Ändra", "Edit", new { id = Model.VehicleID }, new { @class = "btn btn-default" })
 </div>
 

@@ -11,11 +11,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.Vehicle_Type.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Vehicle_Type.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleOwnerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleOwnerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegNr)
         </dd>
 
         <dt>
@@ -25,30 +41,39 @@
         <dd>
             @Html.DisplayFor(model => model.Color)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Owner)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RegNr)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RegNr)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ParkingIn)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.ParkingIn)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.ParkingOut)
         </dt>
+
         <dd>
             @Html.DisplayFor(model => model.ParkingOut)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParkingSpaceNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParkingSpaceNr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reserved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reserved)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {

@@ -71,14 +71,15 @@ namespace Garage2._0.Models
         [Key]
         public int VehicleID { get; set; }
 
-        public int? Vehicle_OwnerId { get; set; }
+        [Display(Name ="Ägare Id")]
+        public int? VehicleOwnerId { get; set; }
         //[ForeignKey("Vehicle_OwnerId")]
-        public virtual VehicleOwner vehicleOwner { get; set; }
+        public virtual VehicleOwner VehicleOwner { get; set; }
 
         public int? Vehicle_TypeId { get; set; }
         //[ForeignKey("Vehicle_TypeId")]
         [Display(Name = "Fordonstyp")]
-        public virtual Vehicle_Type vehicle_Type { get; set; }
+        public virtual Vehicle_Type Vehicle_Type { get; set; }
 
         //[Display (Name="Fordonstyp")]
         //public VehicleType Type { get; set; }

@@ -30,11 +30,11 @@ namespace Garage2._0.Migrations
             //
             context.Vehicles.AddOrUpdate(
                        p => p.VehicleID,
-                       new Vehicle { RegNr = "ABC123", Color = "Blå", Vehicle_OwnerId = 1, Vehicle_TypeId = 1, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
-                       new Vehicle { RegNr = "ABC111", Color = "Vit", Vehicle_OwnerId = 2, Vehicle_TypeId = 1, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
-                       new Vehicle { RegNr = "ABC222", Color = "Röd", Vehicle_OwnerId = 3, Vehicle_TypeId = 3, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
-                       new Vehicle { RegNr = "ABC333", Color = "Grön", Vehicle_OwnerId = 4, Vehicle_TypeId = 4, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
-                       new Vehicle { RegNr = "ABC444", Color = "Röd", Vehicle_OwnerId = 5, Vehicle_TypeId = 2, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now }
+                       new Vehicle { RegNr = "ABC123", Color = "Blå", VehicleOwnerId = 1, Vehicle_TypeId = 1, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
+                       new Vehicle { RegNr = "ABC111", Color = "Vit", VehicleOwnerId = 2, Vehicle_TypeId = 1, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
+                       new Vehicle { RegNr = "ABC222", Color = "Röd", VehicleOwnerId = 3, Vehicle_TypeId = 3, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
+                       new Vehicle { RegNr = "ABC333", Color = "Grön", VehicleOwnerId = 4, Vehicle_TypeId = 4, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now },
+                       new Vehicle { RegNr = "ABC444", Color = "Röd", VehicleOwnerId = 5, Vehicle_TypeId = 2, ParkingIn = DateTime.Now, ParkingOut = DateTime.Now }
                        );
             context.Owners.AddOrUpdate(
                         p => p.Vehicle_OwnerId,

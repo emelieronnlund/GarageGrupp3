@@ -200,33 +200,27 @@ namespace Garage2._0.Controllers
 
         public IEnumerable<Vehicle> FilterSearch(string regnr, string vehicleTypeFilter)
         {
-            if(String.IsNullOrEmpty(regnr))
+            if (String.IsNullOrEmpty(vehicleTypeFilter)) // Om det är första gången vi laddar sidan
             {
-                var results = from v in context.Vehicles
-                              where (String.Compare(vehicleTypeFilter, v.vehicle_Type.Name) == 0)
+                return GetVehicles(false).ToList(); // Returnera ALLA fordon
+            }
+
+
+            if (String.IsNullOrEmpty(regnr)) // Om det inte är skrivet i regnr-fältet, filtrera efter fordon
+            {
+                if(String.Compare(vehicleTypeFilter,"All", StringComparison.InvariantCultureIgnoreCase) == 0) // Om vår dropdownlist skickar "All" returnera alla fordon.
+                {
+                    return GetVehicles(false).ToList();
+                }
+                var results = from v in context.Vehicles // Annars gör vi en sökning på fordonstypen.
+                              where (String.Compare(vehicleTypeFilter, v.Vehicle_Type.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                               select v;
-
-
                 return results;
             }
-            else
+            else // Om det ÄR skrivet i regnr-fältet, sök på regnr
             {
                 return SearchByRegNr(regnr);
             }
-            //if( vehicleTypeFilter != "All")
-            //{
-            //    var results = from r in results
-            //              where r.vehicle_Type.Name == vehicleTypeFilter
-            //              select r;
-
-            //    return results;
-            //}
-            //else
-            //{
-            //    IEnumerable<Vehicle> results = SearchByRegNr(regnr);
-
-            //    return GetVehicles(false);
-            //}
         }
     }
     public class VehiclesController : Controller
@@ -271,22 +265,28 @@ namespace Garage2._0.Controllers
             return View();
         }
         // GET: Vehicles/Detailed_list
-        public ActionResult Detailed_list()
+        public ActionResult Detailed_list(string q, string Fordonstyper)
         {
-            return View(Garage.GetVehicles(false));
+            return View(Garage.FilterSearch(q, Fordonstyper));
         }
         [HttpGet]
-        public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
+        public ActionResult Index(string q, string Fordonstyper)
         {
-            return View(Garage.FilterList(type,today,q));
+            return View(Garage.FilterSearch(q, Fordonstyper));
         }
+        //[HttpGet]
+        //public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
+        //{
+        //    return View(Garage.FilterList(type,today,q));
+        //}
 
         // POST: Vehicles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Type,Color, Owner, RegNr")] Vehicle vehicle)
+        //[Bind(Include = ",Type,Color, Owner, RegNr")]
+        public ActionResult Create( Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
