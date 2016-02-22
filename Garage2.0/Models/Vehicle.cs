@@ -51,7 +51,7 @@ namespace Garage2._0.Models
     }
     public class Vehicle_Type
     {
-        [Key]
+        [Key, Display(Name = "Fordonstyp")]
         public int Vehicle_TypeId { get; set; }
         [Display(Name = "Fordonstyp")]
         public string Name { get; set; }
@@ -62,7 +62,7 @@ namespace Garage2._0.Models
     {
         [Key]
         public int Vehicle_OwnerId { get; set; }
-        [Display(Name = "Ägare")]
+        [Required Display(Name = "Ägare*")]
         public string OwnerName {get; set;}
         public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
@@ -76,6 +76,7 @@ namespace Garage2._0.Models
         //[ForeignKey("Vehicle_OwnerId")]
         public virtual VehicleOwner VehicleOwner { get; set; }
 
+        [Display(Name = "Fordonstyp")]
         public int? Vehicle_TypeId { get; set; }
         //[ForeignKey("Vehicle_TypeId")]
         [Display(Name = "Fordonstyp")]
@@ -85,7 +86,7 @@ namespace Garage2._0.Models
         //public VehicleType Type { get; set; }
         //[Required Display(Name = "Ägare")]
         //public string Owner { get; set; }
-        [Required Display(Name = "Reg Nr")]
+        [Required Display(Name = "Reg Nr*")]
         public string RegNr { get; set; }
         [Display(Name = "Färg")]
         public string Color { get; set; }

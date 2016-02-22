@@ -155,30 +155,6 @@ namespace Garage2._0.Controllers
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<Vehicle> FilterList(string type, bool today = false, string q = "")
-        {
-            FilterType filter;
-            VehicleType vt;
-            if (!String.IsNullOrEmpty(q))
-            {
-                return SearchByOwner(q, today);
-            }
-            if (String.IsNullOrEmpty(type))
-            {
-                return GetVehicles(today);
-            }
-            if (String.Compare(type, "All Vehicle Types", StringComparison.InvariantCultureIgnoreCase) == 0)
-            {
-                filter = FilterType.All;
-                return GetVehicles(today);
-            }
-            vt = (VehicleType)Enum.Parse(typeof(VehicleType), type);
-
-            filter = FilterType.ByType;
-            //bool btoday = String.Compare(today, "true", StringComparison.InvariantCultureIgnoreCase) == 0;
-            return GetVehicles(today, filter, vt);
-        }
-
         ////
         //// Owner
 
@@ -262,6 +238,14 @@ namespace Garage2._0.Controllers
         // GET: Vehicles/Create
         public ActionResult Create()
         {
+            List<SelectListItem> dropdownlist = new List<SelectListItem>();
+            foreach (var v in Garage.GetTypes())
+            {
+                dropdownlist.Add(new SelectListItem { Text = v.Name, Value = v.Vehicle_TypeId.ToString() });
+            }
+
+
+            ViewData["Vehicle_TypeId"] = dropdownlist; /*new SelectList(dropdownlist);*/
             return View();
         }
         // GET: Vehicles/Detailed_list
@@ -272,6 +256,7 @@ namespace Garage2._0.Controllers
         [HttpGet]
         public ActionResult Index(string q, string Fordonstyper)
         {
+
             return View(Garage.FilterSearch(q, Fordonstyper));
         }
         //[HttpGet]
@@ -288,6 +273,8 @@ namespace Garage2._0.Controllers
         //[Bind(Include = ",Type,Color, Owner, RegNr")]
         public ActionResult Create( Vehicle vehicle)
         {
+
+
             if (ModelState.IsValid)
             {
                 vehicle.ParkingIn = DateTime.Now;
