@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Garage2._0.DataAccessLayer;
 using Garage2._0.Models;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace Garage2._0.Controllers
 {
@@ -218,6 +219,7 @@ namespace Garage2._0.Controllers
         public ActionResult Index()
         {
             return View(Garage.GetVehicles(false));
+
         }
 
         // GET: Vehicles/Details/5
@@ -245,7 +247,7 @@ namespace Garage2._0.Controllers
             }
 
 
-            ViewData["Vehicle_TypeId"] = dropdownlist; /*new SelectList(dropdownlist);*/
+            ViewData["Vehicle_TypeId"] = dropdownlist;
             return View();
         }
         // GET: Vehicles/Detailed_list
@@ -256,15 +258,16 @@ namespace Garage2._0.Controllers
         [HttpGet]
         public ActionResult Index(string q, string Fordonstyper)
         {
-
+            //string test = Json(Garage.GetVehicles(false));
+                        
             return View(Garage.FilterSearch(q, Fordonstyper));
         }
-        //[HttpGet]
-        //public ActionResult Index(string type, bool today=false,  string q = "")/*(string q="", FilterType filter = FilterType.All, VehicleType type = VehicleType.Car)*/
-        //{
-        //    return View(Garage.FilterList(type,today,q));
-        //}
 
+        public ActionResult Test()
+        {
+            string jstr = JsonConvert.SerializeObject(Garage.GetVehicles(false));
+            return View((object) jstr);
+        }
         // POST: Vehicles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -290,6 +293,8 @@ namespace Garage2._0.Controllers
         // GET: Vehicles/Edit/5
         public ActionResult Edit(int? id)
         {
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -299,6 +304,16 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<SelectListItem> dropdownlist = new List<SelectListItem>();
+            foreach (var v in Garage.GetTypes())
+            {
+                dropdownlist.Add(new SelectListItem { Text = v.Name, Value = v.Vehicle_TypeId.ToString(), Selected = (vehicle.Vehicle_TypeId == v.Vehicle_TypeId) });
+            }
+
+
+            ViewData["Vehicle_TypeId"] = dropdownlist;
+  
             return View(vehicle);
         }
 
