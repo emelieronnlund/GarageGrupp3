@@ -13,11 +13,30 @@ using Newtonsoft.Json;
 
 namespace Garage2._0.Controllers
 {
+    public enum VehicleType
+    {
+        Car,
+        Boat,
+        Airplane,
+        Motorcycle,
+        Bicycle
+    }
     public enum FilterType
     {
         All,
         ByType,
         Today
+    }
+    public class VehicleListItem
+    {
+        public string Type { get; set; }
+        public string Color { get; set; }
+        public string Owner { get; set; }
+        public string Registration { get; set; }
+        public DateTime? CheckIn { get; set; }
+        public DateTime? CheckOut { get; set;  }
+        public int Id;
+
     }
     public class VehicleRepository : IVehicleRepository, IDisposable
     {
@@ -32,46 +51,57 @@ namespace Garage2._0.Controllers
             return context.Vehicles.Find(id);
         }
 
-        public IEnumerable<Vehicle> GetVehicles(bool? today, FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car)
+        public IEnumerable<VehicleListItem> GetAllVehicles()
         {
-            IEnumerable<Vehicle> results;
-            switch (filter)
-            {
-                case FilterType.All:
-                    {
-                        results = context.Vehicles.ToList();
-                        break;
-                    }
-                //case FilterType.ByType:
-                //    {
-                //        results = from v in context.Vehicles
-                //                      where vehicleFilter == v.vehicleType
-                //                      select v;
-                //        break;
-                //    }
-                case FilterType.Today:
-                    {
-                        results = from v in context.Vehicles
-                                     where v.ParkingIn == DateTime.Today
-                                     select v;
-                        break;
-                    }
-                default:
-                    {
-                        results = context.Vehicles.ToList();
-                    }
-                    break;
-            }
-            if(today == true)
-            {
-                results = from v in results
-                          where v.ParkingIn.Value.Date == DateTime.Today
-                          select v;
-            }
-            //var r = results.OrderBy(x => x.vehicleType).ThenByDescending(y => y.ParkingIn);
-           return ( results);
-            
+            IEnumerable<VehicleListItem> results;
+
+            results = from v in context.Vehicles
+                      join t in context.Vehicle_Types on v.Vehicle_TypeId equals t.Vehicle_TypeId
+                      join o in context.Owners on v.VehicleOwnerId equals o.Vehicle_OwnerId
+                      select new VehicleListItem { Type = t.Name, Color = v.Color, Owner = o.OwnerName, Registration = v.RegNr, CheckIn = v.ParkingIn, CheckOut = v.ParkingOut, Id = v.VehicleID };
+
+            return (results);
         }
+        //public IEnumerable<Vehicle> GetVehicles(bool? today, FilterType filter = FilterType.All, VehicleType vehicleFilter = VehicleType.Car)
+        //{
+        //    IEnumerable<Vehicle> results;
+        //    switch (filter)
+        //    {
+        //        case FilterType.All:
+        //            {
+        //                results = context.Vehicles.ToList();
+        //                break;
+        //            }
+        //        //case FilterType.ByType:
+        //        //    {
+        //        //        results = from v in context.Vehicles
+        //        //                      where vehicleFilter == v.vehicleType
+        //        //                      select v;
+        //        //        break;
+        //        //    }
+        //        case FilterType.Today:
+        //            {
+        //                results = from v in context.Vehicles
+        //                             where v.ParkingIn == DateTime.Today
+        //                             select v;
+        //                break;
+        //            }
+        //        default:
+        //            {
+        //                results = context.Vehicles.ToList();
+        //            }
+        //            break;
+        //    }
+        //    if(today == true)
+        //    {
+        //        results = from v in results
+        //                  where v.ParkingIn.Value.Date == DateTime.Today
+        //                  select v;
+        //    }
+        //    //var r = results.OrderBy(x => x.vehicleType).ThenByDescending(y => y.ParkingIn);
+        //   return ( results);
+            
+        //}
 
         public void InsertVehicle(Vehicle v)
         {
@@ -98,38 +128,38 @@ namespace Garage2._0.Controllers
             return (result);
         }
 
-        public IEnumerable<Vehicle> SearchByOwner(string owner, bool today)
-        {
-            //var result = from v in context.Vehicles
-            //             where String.Compare(v.Vehicle_OwnerId, owner, StringComparison.InvariantCultureIgnoreCase) == 0
-            //             select v;
+        //public IEnumerable<Vehicle> SearchByOwner(string owner, bool today)
+        //{
+        //    //var result = from v in context.Vehicles
+        //    //             where String.Compare(v.Vehicle_OwnerId, owner, StringComparison.InvariantCultureIgnoreCase) == 0
+        //    //             select v;
 
-            //if (today == true)
-            //{
-            //    result = from v in result
-            //              where v.ParkingIn.Value.Date == DateTime.Today
-            //              select v;
-            //}
-            //return (result);
-            return null;
-        }
+        //    //if (today == true)
+        //    //{
+        //    //    result = from v in result
+        //    //              where v.ParkingIn.Value.Date == DateTime.Today
+        //    //              select v;
+        //    //}
+        //    //return (result);
+        //    return null;
+        //}
 
-        public IEnumerable<Vehicle> FilterByType(VehicleType type)
-        {
-            //var result = from v in context.Vehicles
-            //             where v.Vehicle_TypeId == type
-            //             select v;
-            //return (result);
-            return null;
-        }
+        //public IEnumerable<Vehicle> FilterByType(VehicleType type)
+        //{
+        //    //var result = from v in context.Vehicles
+        //    //             where v.Vehicle_TypeId == type
+        //    //             select v;
+        //    //return (result);
+        //    return null;
+        //}
         // Returns all the vehicles to have entered the garage today.
-        public IEnumerable<Vehicle> GetTodaysParking()
-        {
-            var result = from v in context.Vehicles
-                         where v.ParkingIn == DateTime.Today
-                         select v;
-            return (result);
-        }
+        //public IEnumerable<Vehicle> GetTodaysParking()
+        //{
+        //    var result = from v in context.Vehicles
+        //                 where v.ParkingIn == DateTime.Today
+        //                 select v;
+        //    return (result);
+        //}
 
         public void UpdateVehicle(Vehicle v)
         {
@@ -174,31 +204,31 @@ namespace Garage2._0.Controllers
 
 
         ////
+        //// Searching & filtering (old)
+    //    public IEnumerable<Vehicle> FilterSearch(string regnr, string vehicleTypeFilter)
+    //    {
+    //        if (String.IsNullOrEmpty(vehicleTypeFilter)) // Om det är första gången vi laddar sidan
+    //        {
+    //            return GetVehicles(false).ToList(); // Returnera ALLA fordon
+    //        }
 
-        public IEnumerable<Vehicle> FilterSearch(string regnr, string vehicleTypeFilter)
-        {
-            if (String.IsNullOrEmpty(vehicleTypeFilter)) // Om det är första gången vi laddar sidan
-            {
-                return GetVehicles(false).ToList(); // Returnera ALLA fordon
-            }
 
-
-            if (String.IsNullOrEmpty(regnr)) // Om det inte är skrivet i regnr-fältet, filtrera efter fordon
-            {
-                if(String.Compare(vehicleTypeFilter,"All", StringComparison.InvariantCultureIgnoreCase) == 0) // Om vår dropdownlist skickar "All" returnera alla fordon.
-                {
-                    return GetVehicles(false).ToList();
-                }
-                var results = from v in context.Vehicles // Annars gör vi en sökning på fordonstypen.
-                              where (String.Compare(vehicleTypeFilter, v.Vehicle_Type.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
-                              select v;
-                return results;
-            }
-            else // Om det ÄR skrivet i regnr-fältet, sök på regnr
-            {
-                return SearchByRegNr(regnr);
-            }
-        }
+    //        if (String.IsNullOrEmpty(regnr)) // Om det inte är skrivet i regnr-fältet, filtrera efter fordon
+    //        {
+    //            if(String.Compare(vehicleTypeFilter,"All", StringComparison.InvariantCultureIgnoreCase) == 0) // Om vår dropdownlist skickar "All" returnera alla fordon.
+    //            {
+    //                return GetVehicles(false).ToList();
+    //            }
+    //            var results = from v in context.Vehicles // Annars gör vi en sökning på fordonstypen.
+    //                          where (String.Compare(vehicleTypeFilter, v.Vehicle_Type.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+    //                          select v;
+    //            return results;
+    //        }
+    //        else // Om det ÄR skrivet i regnr-fältet, sök på regnr
+    //        {
+    //            return SearchByRegNr(regnr);
+    //        }
+    //    }
     }
     public class VehiclesController : Controller
     {
@@ -218,8 +248,8 @@ namespace Garage2._0.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            return View(Garage.GetVehicles(false));
-
+            //return View(Garage.GetVehicles(false));
+            return View();
         }
 
         // GET: Vehicles/Details/5
@@ -251,22 +281,22 @@ namespace Garage2._0.Controllers
             return View();
         }
         // GET: Vehicles/Detailed_list
-        public ActionResult Detailed_list(string q, string Fordonstyper)
-        {
-            return View(Garage.FilterSearch(q, Fordonstyper));
-        }
-        [HttpGet]
-        public ActionResult Index(string q, string Fordonstyper)
-        {
-            //string test = Json(Garage.GetVehicles(false));
+        //public ActionResult Detailed_list(string q, string Fordonstyper)
+        //{
+        //    return View(Garage.FilterSearch(q, Fordonstyper));
+        //}
+        //[HttpGet]
+        //public ActionResult Index(string q, string Fordonstyper)
+        //{
+        //    //string test = Json(Garage.GetVehicles(false));
                         
-            return View(Garage.FilterSearch(q, Fordonstyper));
-        }
+        //    return View(Garage.FilterSearch(q, Fordonstyper));
+        //}
 
-        public ActionResult Test()
+        public ActionResult _List()
         {
-            string jstr = JsonConvert.SerializeObject(Garage.GetVehicles(false));
-            return View((object) jstr);
+            string jstr = JsonConvert.SerializeObject(Garage.GetAllVehicles());
+            return PartialView((object) jstr);
         }
         // POST: Vehicles/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -333,25 +363,25 @@ namespace Garage2._0.Controllers
             return View(vehicle);
         }
 
-        [HttpGet]
-        public ActionResult Search(string q="", string val="")
-        {
-            if( String.IsNullOrEmpty(q) )
-            {
-                return View(Garage.GetVehicles(false));
-            }
+        //[HttpGet]
+        //public ActionResult Search(string q="", string val="")
+        //{
+        //    if( String.IsNullOrEmpty(q) )
+        //    {
+        //        return View(Garage.GetVehicles(false));
+        //    }
 
-            if (val == "owner")
-            {
-                return View(Garage.SearchByOwner(q, false));
-            }
-            else if (val == "reg")
-            {
-                return View(Garage.SearchByRegNr(q));
-            }
-            else
-                return View(Garage.GetVehicles(false));
-        }
+        //    if (val == "owner")
+        //    {
+        //        return View(Garage.SearchByOwner(q, false));
+        //    }
+        //    else if (val == "reg")
+        //    {
+        //        return View(Garage.SearchByRegNr(q));
+        //    }
+        //    else
+        //        return View(Garage.GetVehicles(false));
+        //}
         // GET: Vehicles/Delete/5
         public ActionResult Delete(int? id)
         {

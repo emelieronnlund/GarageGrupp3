@@ -9,7 +9,7 @@
 <hr />
 <p>@DateTime.Now</p>
 <h2>Sök</h2>
-@Html.Action("_Filter")
+@*@Html.Action("_Filter")*@
 
 @*<div class="search-container">
     @using (Html.BeginForm("Index", "Vehicles", FormMethod.Get))
@@ -24,59 +24,5 @@
 <p>
     @Html.ActionLink("Lägg till fordon", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Vehicle_Type.Name)
-           @*@Html.DisplayNameFor(model => model.Type)*@
-        </th>
-        @*<th>
-           @Html.DisplayNameFor(model => model.Owner)
-        </th>*@
-        <th>
-           @Html.DisplayNameFor(model => model.RegNr)
-        </th>
-        <th>
-           @Html.DisplayNameFor(model => model.Color)
-        </th>
-        @*<th>
-           @Html.DisplayNameFor(model => model.ParkingIn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ParkingOut)
-        </th>*@
-        <th>
-            &nbsp;
-        </th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vehicle_Type.Name)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Owner)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.RegNr)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Color)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ParkingIn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ParkingOut)
-        </td>*@
-        <td>
-            @Html.ActionLink("Ändra", "Edit", new { id=item.VehicleID }) |
-            @Html.ActionLink("Visa", "Details", new { id=item.VehicleID }) |
-            @Html.ActionLink("Ta bort", "Delete", new { id=item.VehicleID })
-        </td>
-    </tr>
-}
-
-</table>
-@Html.ActionLink("Visa detaljerad lista", "Detailed_list", "Vehicles")
+@Html.Action("_List")

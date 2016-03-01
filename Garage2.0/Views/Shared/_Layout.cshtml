@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Garage Grupp 3</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-animate.js")
     @Scripts.Render("~/bundles/modernizr")
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
@@ -26,7 +27,7 @@
                     <li>@Html.ActionLink("Hem", "Index", "Home")</li>
                     <li>@Html.ActionLink("Lägg till fordon", "Create", "Vehicles")</li>
                     <li>@Html.ActionLink("Lista alla fordon", "Index", "Vehicles")</li>
-                    <li>@Html.ActionLink("Detaljerad lista", "Detailed_list", "Vehicles")</li>
+                    @*<li>@Html.ActionLink("Detaljerad lista", "Detailed_list", "Vehicles")</li>*@
                     @*<li>@Html.ActionLink("Sök fordon", "Search", "Vehicles")</li>*@
                 </ul>
                
